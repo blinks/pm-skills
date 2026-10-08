@@ -111,6 +111,37 @@ codex plugin add pm-ai-shipping@pm-skills
 
 This is a best-effort, model-driven conversion (some Claude-specific command syntax won't translate), but it's a quick way to get the guided workflows on Codex without leaving the CLI.
 
+### Google Antigravity (AGY)
+
+PM Skills includes native Antigravity plugin support across all 9 plugins, including root manifests (`plugin.json`), workspace discovery manifests (`plugins.json` and `.agents/plugins.json`), and behavioral domain rules (`rules/AGENTS.md`).
+
+Antigravity CLI and IDE automatically convert command workflows (`commands/*.md`) into skills during ingestion, making all 69 skills and 42 workflows fully operational via slash commands (`/discover`, `/write-prd`, `/strategy`, etc.) or conversational semantic invocation.
+
+```bash
+# Option 1: Workspace Auto-Discovery
+# Simply open or clone the repository in Antigravity — plugins.json and .agents/plugins.json
+# automatically register and mount all 9 plugins in your workspace.
+
+# Option 2: Install plugins globally via Antigravity CLI (agy)
+agy plugin install ./pm-product-discovery
+agy plugin install ./pm-product-strategy
+agy plugin install ./pm-execution
+agy plugin install ./pm-market-research
+agy plugin install ./pm-data-analytics
+agy plugin install ./pm-marketing-growth
+agy plugin install ./pm-go-to-market
+agy plugin install ./pm-toolkit
+agy plugin install ./pm-ai-shipping
+
+# Validate any plugin with agy CLI
+agy plugin validate ./pm-product-discovery
+```
+
+**What you get:**
+- **Full Slash Command & Workflow Support**: Commands are converted to skills by Antigravity at ingestion time, giving you native `/<command>` access.
+- **Domain Behavioral Rules**: Each plugin ships an active `rules/AGENTS.md` ruleset that Antigravity merges into the agent's context when enabled, enforcing quality bars for PRDs, hypotheses, SQL safety, and security audits.
+- **Progressive Disclosure**: Skills and workflows are indexed into the agent prompt with minimal overhead and loaded on demand.
+
 ### Other AI assistants (skills only)
 
 The `skills/*/SKILL.md` files follow the universal skill format and work with any tool that reads it. Commands (`/slash-commands`) are Claude-specific.

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Antigravity Support
+
+- Added native Google Antigravity (AGY) plugin manifests (`plugin.json`) across all 9 plugins, supporting both Antigravity IDE and CLI (`agy plugin install`, `agy plugin validate`).
+- Added workspace plugin discovery configurations (`plugins.json` and `.agents/plugins.json`) to automatically mount all 9 plugins in Antigravity workspaces.
+- Added domain behavioral rules (`rules/AGENTS.md`) for all 9 plugins, automatically merged into the agent's active rule set when each plugin is enabled.
+- Integrated automated tests in `tests/test_antigravity.py` to lock in Antigravity manifest integrity, version synchronization, rule files, and CLI validation parity.
+
 ### pm-ai-shipping
 
 - Added the **code-review** skill: correctness is the core engine, with performance and security as optional sub-cases of it rather than separate methods. It anchors on agreements between participants across a boundary — the defects that stay invisible file-by-file because each side reads as reasonable alone — forces a violating execution, and refutes every candidate before reporting.

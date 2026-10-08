@@ -1,0 +1,13 @@
+{
+  "entries": [
+    { "path": "pm-ai-shipping" },
+    { "path": "pm-data-analytics" },
+    { "path": "pm-execution" },
+    { "path": "pm-go-to-market" },
+    { "path": "pm-market-research" },
+    { "path": "pm-marketing-growth" },
+    { "path": "pm-product-discovery" },
+    { "path": "pm-product-strategy" },
+    { "path": "pm-toolkit" }
+  ]
+}
