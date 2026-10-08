@@ -1,6 +1,7 @@
 ---
 name: code-review
 description: "Review code for actionable defects. Correctness is the core; performance and security are optional sub-cases of the same engine. Anchors on agreements between participants across a boundary, forces a violating execution, and refutes every candidate before reporting. Use when asked to review changes, find bugs, audit a codebase, or check whether a fix is safe."
+disable-slash-command: true
 ---
 
 # Code Review

@@ -132,5 +132,28 @@ class TestAgyCliValidate(unittest.TestCase):
             )
 
 
+class TestAntigravitySkillVisibility(unittest.TestCase):
+    def test_analytical_skills_have_disable_slash_command(self):
+        """Analytical framework skills must set disable-slash-command: true to keep the user's / menu clean."""
+        total_checked = 0
+        for p in plugin_dirs():
+            skills_dir = p / "skills"
+            if not skills_dir.is_dir():
+                continue
+            for s in skills_dir.iterdir():
+                if not s.is_dir():
+                    continue
+                skill_md = s / "SKILL.md"
+                self.assertTrue(skill_md.is_file(), f"Missing {skill_md}")
+                content = skill_md.read_text(encoding="utf-8")
+                self.assertIn(
+                    "disable-slash-command: true",
+                    content,
+                    f"{p.name}/skills/{s.name}/SKILL.md missing 'disable-slash-command: true'",
+                )
+                total_checked += 1
+        self.assertEqual(total_checked, 69, f"Expected 69 skills checked, got {total_checked}")
+
+
 if __name__ == "__main__":
     unittest.main()

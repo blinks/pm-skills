@@ -1,6 +1,7 @@
 ---
 name: swot-analysis
 description: "Perform a detailed SWOT analysis — strengths, weaknesses, opportunities, and threats with actionable recommendations. Use when doing strategic assessment, competitive analysis, or evaluating a product or business position."
+disable-slash-command: true
 ---
 # SWOT Analysis
 
