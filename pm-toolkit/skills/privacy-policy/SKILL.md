@@ -1,7 +1,6 @@
 ---
 name: privacy-policy
 description: "Draft a detailed privacy policy covering data types, jurisdiction, GDPR and compliance considerations, and clauses needing legal review. Use when creating a privacy policy, updating data protection documentation, or preparing for compliance."
-disable-slash-command: true
 ---
 # Privacy Policy Generator
 

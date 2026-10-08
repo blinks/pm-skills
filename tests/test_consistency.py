@@ -29,11 +29,32 @@ def plugin_dirs():
     )
 
 
+DUAL_COMMAND_SKILLS = {
+    "pre-mortem",
+    "stakeholder-map",
+    "test-scenarios",
+    "business-model",
+    "value-proposition",
+    "draft-nda",
+    "privacy-policy",
+    "review-resume",
+}
+
+
 def skill_count(plugin: Path) -> int:
     skills = plugin / "skills"
     if not skills.is_dir():
         return 0
-    return sum(1 for s in skills.iterdir() if s.is_dir())
+    # In dual-platform setup (Claude Code + Antigravity), Antigravity exposes command
+    # workflows via skills/<command>/SKILL.md.
+    # To check consistency with the 69 documented analytical skills in README:
+    cmds = plugin / "commands"
+    cmd_files = {c.stem for c in cmds.glob("*.md")} if cmds.is_dir() else set()
+    return sum(
+        1
+        for s in skills.iterdir()
+        if s.is_dir() and (s.name not in cmd_files or s.name in DUAL_COMMAND_SKILLS)
+    )
 
 
 def command_count(plugin: Path) -> int:

@@ -31,8 +31,8 @@ pm-skills/                           <- repo root
     ├── plugin.json                  <- Antigravity per-plugin manifest
     ├── .claude-plugin/plugin.json   <- Claude Code per-plugin manifest
     ├── rules/AGENTS.md              <- Antigravity active rule set
-    ├── skills/{skill}/SKILL.md      <- one folder per skill
-    ├── commands/{command}.md        <- one file per command (converted to skills by Antigravity)
+    ├── skills/{skill}/SKILL.md      <- one folder per skill (analytical skills + Antigravity command workflows)
+    ├── commands/{command}.md        <- one file per command (for Claude Code slash commands)
     └── README.md                    <- per-plugin documentation
 ```
 

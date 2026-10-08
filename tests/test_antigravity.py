@@ -133,26 +133,75 @@ class TestAgyCliValidate(unittest.TestCase):
 
 
 class TestAntigravitySkillVisibility(unittest.TestCase):
+    DUAL_COMMAND_SKILLS = {
+        "pre-mortem",
+        "stakeholder-map",
+        "test-scenarios",
+        "business-model",
+        "value-proposition",
+        "draft-nda",
+        "privacy-policy",
+        "review-resume",
+    }
+
     def test_analytical_skills_have_disable_slash_command(self):
-        """Analytical framework skills must set disable-slash-command: true to keep the user's / menu clean."""
-        total_checked = 0
+        """Pure analytical framework skills must set disable-slash-command: true to keep the user's / menu clean."""
+        analytical_checked = 0
         for p in plugin_dirs():
             skills_dir = p / "skills"
+            cmds_dir = p / "commands"
+            cmd_files = {c.stem for c in cmds_dir.glob("*.md")} if cmds_dir.is_dir() else set()
             if not skills_dir.is_dir():
                 continue
             for s in skills_dir.iterdir():
                 if not s.is_dir():
                     continue
+                if s.name in cmd_files and s.name not in self.DUAL_COMMAND_SKILLS:
+                    continue
+                if s.name in self.DUAL_COMMAND_SKILLS:
+                    continue
                 skill_md = s / "SKILL.md"
-                self.assertTrue(skill_md.is_file(), f"Missing {skill_md}")
                 content = skill_md.read_text(encoding="utf-8")
                 self.assertIn(
                     "disable-slash-command: true",
                     content,
                     f"{p.name}/skills/{s.name}/SKILL.md missing 'disable-slash-command: true'",
                 )
-                total_checked += 1
-        self.assertEqual(total_checked, 69, f"Expected 69 skills checked, got {total_checked}")
+                analytical_checked += 1
+        self.assertEqual(analytical_checked, 61, f"Expected 61 analytical skills checked, got {analytical_checked}")
+
+    def test_command_workflows_exposed_as_slash_commands(self):
+        """All 42 commands must be present in skills/ and NOT have disable-slash-command: true."""
+        commands_checked = 0
+        for p in plugin_dirs():
+            cmds_dir = p / "commands"
+            skills_dir = p / "skills"
+            if not cmds_dir.is_dir():
+                continue
+            for cmd_file in cmds_dir.glob("*.md"):
+                cname = cmd_file.stem
+                skill_md = skills_dir / cname / "SKILL.md"
+                self.assertTrue(
+                    skill_md.is_file(),
+                    f"Command {p.name}:{cname} missing corresponding skill at {skill_md}",
+                )
+                content = skill_md.read_text(encoding="utf-8")
+                self.assertNotIn(
+                    "disable-slash-command: true",
+                    content,
+                    f"Command {p.name}:{cname} has 'disable-slash-command: true' in {skill_md}, hiding it from Antigravity's / menu",
+                )
+                commands_checked += 1
+        self.assertEqual(commands_checked, 42, f"Expected 42 commands checked, got {commands_checked}")
+
+    def test_total_antigravity_skills_count(self):
+        """Total skills in Antigravity equals 61 analytical + 42 command workflows = 103."""
+        total = 0
+        for p in plugin_dirs():
+            skills_dir = p / "skills"
+            if skills_dir.is_dir():
+                total += sum(1 for s in skills_dir.iterdir() if s.is_dir())
+        self.assertEqual(total, 103, f"Expected 103 total skills, got {total}")
 
 
 if __name__ == "__main__":
